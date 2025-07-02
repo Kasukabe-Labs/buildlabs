@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Progress } from "./ui/progress";
 import ProfileCard from "./ProfileCard";
 import ProjectCard from "./ProjectCard";
+import { Button } from "./ui/button";
 
 const leaderboardData = [
   {
@@ -46,7 +47,11 @@ const leaderboardData = [
 
 export function Leaderboard() {
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 mt-12 bg-background text-foreground">
+    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 mt-6 bg-background text-foreground">
+      <div className="w-full max-w-6xl flex justify-start gap-6 items-center mb-6">
+        <Button variant={"outline"}>Create project</Button>
+        <Button variant={"outline"}>View profile</Button>
+      </div>
       <Table className="min-h-screen p-6 border border-border shadow rounded-lg max-w-6xl w-full bg-card text-card-foreground mx-auto">
         <TableHeader>
           <TableRow>

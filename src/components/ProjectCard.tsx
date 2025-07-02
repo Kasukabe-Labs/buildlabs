@@ -16,7 +16,6 @@ export default function ProjectCard({
         {projectDescription}
       </p>
       <div className="flex items-center space-x-2">
-        {/* <Button className="cursor-pointer text-sm">View</Button> */}
         <ProjectViewDialog
           githubLink=""
           pfpSrc=""
@@ -25,7 +24,7 @@ export default function ProjectCard({
         />
         <Tooltip>
           <TooltipTrigger>
-            <Button className="cursor-pointer">
+            <Button>
               <ArrowBigUp size={30} />
             </Button>
           </TooltipTrigger>
