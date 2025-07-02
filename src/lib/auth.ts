@@ -10,6 +10,7 @@ const auth = betterAuth({
     twitter: {
       clientId: process.env.TWITTER_CLIENT_ID as string,
       clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
+      scope: ["users.read"],
     },
   },
   trustedOrigins: ["http://localhost:3000"],

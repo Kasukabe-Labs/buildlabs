@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Sideprojects.fun",
+  title: "buildlabs.fun",
   description: "A place where we build together",
 };
 
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         <main>{children}</main>
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

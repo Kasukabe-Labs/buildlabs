@@ -14,13 +14,16 @@ export default function Navbar() {
   const user = session?.user;
 
   return (
-    <div className="w-full py-2 px-6 flex justify-between items-center border border-muted">
-      <Image
-        src={"/assets/badges/badge05.png"}
-        alt="badge"
-        width={60}
-        height={60}
-      />
+    <div className="w-full py-3 max-w-6xl px-4 mt-4 flex justify-between items-center border border-muted  mx-auto">
+      <div className="flex justify-center items-center gap-2">
+        <Image
+          src={"/assets/badges/badge05.png"}
+          alt="badge"
+          width={40}
+          height={40}
+        />
+        <h3 className="text-2xl">Buildlabs</h3>
+      </div>
 
       {session ? (
         <Avatar className="size-12 rounded-xl">

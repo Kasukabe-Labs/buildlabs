@@ -8,7 +8,7 @@ async function XLogIn({
   await signIn.social(
     {
       provider: "twitter",
-      callbackURL: "/",
+      callbackURL: "/profile/add",
     },
     {
       onRequest(context) {

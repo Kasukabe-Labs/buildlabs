@@ -13,13 +13,30 @@ model User {
   email         String
   emailVerified Boolean
   image         String?
+  projectCount  Int       @default(0)
+  badge         String?
+  github        String?
+  twitter       String?
+  hasDetails    Boolean   @default(false)
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  Projects      Project[]
 
   @@unique([email])
   @@map("user")
+}
+
+model Project {
+  id                 String  @id
+  projectName        String
+  projectDescription String
+  github             String?
+  progress           Int
+  isSecretProject    Boolean @default(false)
+  userId             String
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
