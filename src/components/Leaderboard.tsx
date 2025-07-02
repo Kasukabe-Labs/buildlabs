@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { Progress } from "./ui/progress";
 import ProfileCard from "./ProfileCard";
+import ProjectCard from "./ProjectCard";
 
 const leaderboardData = [
   {
@@ -69,7 +70,12 @@ export function Leaderboard() {
                 />
               </TableCell>
 
-              <TableCell className="text-base">{entry.project}</TableCell>
+              <TableCell>
+                <ProjectCard
+                  projectTitle="Realtime excalidraw"
+                  projectDescription="Realtime excalidraw clone using monorepo architecture with nextjs, prisma, tailwindcss, nodejs, websockets"
+                />
+              </TableCell>
               <TableCell className="">
                 <Progress value={parseInt(entry.progress)} />
               </TableCell>

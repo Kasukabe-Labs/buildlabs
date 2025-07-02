@@ -22,7 +22,8 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  Projects      Project[]
+  Projects      Project[] @relation("UserProjects")
+  votedProjects String[]  @default([])
 
   @@unique([email])
   @@map("user")
@@ -36,7 +37,7 @@ model Project {
   progress           Int
   isSecretProject    Boolean @default(false)
   userId             String
-  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User    @relation("UserProjects", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
