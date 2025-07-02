@@ -7,6 +7,7 @@ import { XLogIn } from "@/functions/login";
 import { useSession } from "@/lib/authCLient";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
+import Link from "next/link";
 
 export default function Navbar() {
   const [loading, setLoading] = useState(false);
@@ -14,15 +15,18 @@ export default function Navbar() {
 
   return (
     <div className="w-full py-3 max-w-6xl px-4 mt-4 flex justify-between items-center border border-muted  mx-auto">
-      <div className="flex justify-center items-center gap-2">
-        <Image
-          src={"/assets/badges/badge05.png"}
-          alt="badge"
-          width={40}
-          height={40}
-        />
-        <h3 className="text-2xl">Buildlabs</h3>
-      </div>
+      <Link href={"/"}>
+        <div className="flex justify-center items-center gap-2 cursor-pointer">
+          <Image
+            src={"/b.png"}
+            className="rounded-md"
+            alt="badge"
+            width={40}
+            height={40}
+          />
+          <h3 className="text-2xl">buildlabs.fun</h3>
+        </div>
+      </Link>
 
       {isAuthenticated ? (
         <Avatar className="size-12 rounded-xl">
