@@ -16,6 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import axios from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateProject() {
   const [projectName, setProjectName] = useState("");
@@ -23,9 +26,45 @@ export default function CreateProject() {
   const [progress, setProgress] = useState(0);
   const [github, setGithub] = useState("");
   const [isSecretProject, setIsSecretProject] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const handleCreateProject = async () => {
+    setLoading(true);
+    try {
+      if (!projectName || !projectDescription || progress === 0 || !github) {
+        toast.error("Please fill in all required fields.");
+        setLoading(false);
+        return;
+      }
+      const response = await axios.post("/api/projects/new", {
+        projectName,
+        projectDescription,
+        progress,
+        github,
+        isSecretProject,
+      });
+
+      if (response.status === 201) {
+        toast.success("Project created successfully!");
+        setProjectName("");
+        setProjectDescription("");
+        setProgress(0);
+        setGithub("");
+        setIsSecretProject(false);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error creating project:", error);
+      toast.error("Failed to create project.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center px-4 bg-background text-foreground">
+    <div className="h-screen w-full flex pt-16 flex-col justify-center items-center px-4 bg-background text-foreground">
       <h2 className="text-3xl font-bold mb-4">Create new project</h2>
 
       <Card className="w-full max-w-xl p-6 space-y-4">
@@ -84,7 +123,13 @@ export default function CreateProject() {
             />
           </div>
 
-          <Button className="mt-4 w-full">Create Project</Button>
+          <Button
+            disabled={loading}
+            onClick={handleCreateProject}
+            className="mt-4 w-full"
+          >
+            {loading ? "Creating..." : "Create Project"}
+          </Button>
         </CardContent>
       </Card>
     </div>
