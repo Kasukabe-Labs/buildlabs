@@ -6,6 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "./ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CreateProject() {
   const [projectName, setProjectName] = useState("");
@@ -18,9 +28,9 @@ export default function CreateProject() {
     <div className="h-screen w-full flex flex-col justify-center items-center px-4 bg-background text-foreground">
       <h2 className="text-3xl font-bold mb-4">Create new project</h2>
 
-      <Card className="w-full max-w-md p-6 space-y-4">
+      <Card className="w-full max-w-xl p-6 space-y-4">
         <CardContent className="space-y-4">
-          <div className="space-y-2">
+          <div className="space-y-2 ">
             <Label htmlFor="projectName">Project Name</Label>
             <Input
               id="projectName"
@@ -39,15 +49,21 @@ export default function CreateProject() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="progress">Progress (%)</Label>
-            <Input
-              id="progress"
-              type="number"
-              min={0}
-              max={100}
-              value={progress}
-              onChange={(e) => setProgress(Number(e.target.value))}
-            />
+            <Label htmlFor="progress">Project progress</Label>
+            <Select onValueChange={(value) => setProgress(Number(value) * 20)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select progress" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="1">⏳ Just Started</SelectItem>
+                  <SelectItem value="2">🛠️ In Progress</SelectItem>
+                  <SelectItem value="3">🔄 Halfway There</SelectItem>
+                  <SelectItem value="4">🚀 Almost Done</SelectItem>
+                  <SelectItem value="5">✅ Completed</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -67,6 +83,8 @@ export default function CreateProject() {
               onCheckedChange={setIsSecretProject}
             />
           </div>
+
+          <Button className="mt-4 w-full">Create Project</Button>
         </CardContent>
       </Card>
     </div>
