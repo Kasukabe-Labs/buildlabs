@@ -96,6 +96,8 @@ export function Leaderboard() {
 
               <TableCell>
                 <ProjectCard
+                  id={project.id}
+                  votes={project.votes}
                   githubLink={project.github}
                   projectTitle={project.projectName}
                   projectDescription={project.projectDescription}

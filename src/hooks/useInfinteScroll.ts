@@ -15,6 +15,7 @@ interface Project {
   projectDescription: string;
   progress: number;
   github: string;
+  votes: number;
   createdAt: string;
   user: User;
 }

@@ -4,7 +4,9 @@ interface ProjectCardProps {
 }
 
 interface ProjectViewDialogProps extends ProjectCardProps {
+  id: string;
   githubLink: string;
+  votes: number;
 }
 
 export type { ProjectCardProps, ProjectViewDialogProps };
