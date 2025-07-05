@@ -60,7 +60,7 @@ export function Leaderboard() {
   }
 
   return (
-    <div className="min-h-screen w-full pt-26 flex flex-col justify-center items-center px-4 mt-6 bg-background text-foreground">
+    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 mt-6 bg-background text-foreground">
       <div className="w-full max-w-6xl flex justify-start gap-6 items-center mb-2">
         <Link href={"/newProject"}>
           <Button variant={"secondary"}>Create project</Button>
@@ -96,6 +96,7 @@ export function Leaderboard() {
 
               <TableCell>
                 <ProjectCard
+                  githubLink={project.github}
                   projectTitle={project.projectName}
                   projectDescription={project.projectDescription}
                 />

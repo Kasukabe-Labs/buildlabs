@@ -64,7 +64,7 @@ export default function CreateProject() {
   };
 
   return (
-    <div className="h-screen w-full flex pt-16 flex-col justify-center items-center px-4 bg-background text-foreground">
+    <div className="h-screen w-full flex flex-col justify-center items-center px-4 bg-background text-foreground">
       <h2 className="text-3xl font-bold mb-4">Create new project</h2>
 
       <Card className="w-full max-w-xl p-6 space-y-4">

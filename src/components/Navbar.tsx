@@ -14,7 +14,7 @@ export default function Navbar() {
   const { user, isAuthenticated } = useAuth();
 
   return (
-    <div className="w-full py-3 max-w-6xl px-4 mt-4 flex justify-between items-center border border-muted  mx-auto fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/70 ">
+    <div className="w-full py-3 max-w-6xl px-4 mt-4 flex justify-between items-center border border-muted  mx-auto ">
       <Link href={"/"}>
         <div className="flex justify-center items-center gap-2 cursor-pointer">
           <Image
