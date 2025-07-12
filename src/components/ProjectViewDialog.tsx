@@ -9,7 +9,7 @@ export default function ProjectViewDialog({
 }: ProjectViewDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger className="p-2 px-4 bg-primary text-primary-foreground rounded-md cursor-pointer">
+      <DialogTrigger className="p-2 px-4 bg-primary overflow-hidden text-primary-foreground rounded-md cursor-pointer">
         View
       </DialogTrigger>
       <DialogContent className="bg-background border border-primary rounded-xl p-6 ">

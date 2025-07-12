@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { XLogIn } from "@/functions/login";
-import { useSession } from "@/lib/authCLient";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";

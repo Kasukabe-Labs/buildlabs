@@ -39,8 +39,7 @@ const voteProjectHandler = async ({
     setLoading(false);
   } catch (error: any) {
     console.log("Error voting for project:", error);
-    const errorMessage =
-      error?.data?.error || "You have already voted for this project";
+    const errorMessage = error?.data?.error || "Not allowed to vote.";
     toast.error(errorMessage);
   } finally {
     setLoading(false);

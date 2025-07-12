@@ -5,14 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Button } from "./ui/button";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -111,15 +109,6 @@ export default function CreateProject() {
               id="github"
               value={github}
               onChange={(e) => setGithub(e.target.value)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <Label htmlFor="isSecretProject">Secret Project</Label>
-            <Switch
-              id="isSecretProject"
-              checked={isSecretProject}
-              onCheckedChange={setIsSecretProject}
             />
           </div>
 

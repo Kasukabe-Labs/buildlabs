@@ -11,7 +11,7 @@ export async function GET(request: Request) {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: {
-        createdAt: "desc",
+        votes: "desc",
       },
       include: {
         user: {

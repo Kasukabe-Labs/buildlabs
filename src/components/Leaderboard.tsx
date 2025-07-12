@@ -65,7 +65,6 @@ export function Leaderboard() {
         <Link href={"/newProject"}>
           <Button variant={"secondary"}>Create project</Button>
         </Link>
-        <Button variant={"secondary"}>View profile</Button>
       </div>
 
       <Table className="min-h-screen p-6 border border-border shadow rounded-lg max-w-6xl w-full bg-card text-card-foreground mx-auto">
