@@ -8,39 +8,64 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String        @id
   name          String
   email         String
-  emailVerified Boolean
+  emailVerified Boolean       @default(false)
   image         String?
-  projectCount  Int       @default(0)
-  badge         String?
+  projectCount  Int           @default(0)
   github        String?
   twitter       String?
-  hasDetails    Boolean   @default(false)
+  hasDetails    Boolean       @default(false)
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  Projects      Project[] @relation("UserProjects")
-  votedProjects String[]  @default([])
+  projects      Project[]
+  applications  Application[]
 
   @@unique([email])
   @@map("user")
 }
 
+model Application {
+  id        String            @id
+  title     String
+  body      String
+  userId    String
+  accepted  Boolean           @default(false)
+  status    ApplicationStatus @default(pending)
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId String
+  project   Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  updatedAt DateTime
+  createdAt DateTime
+
+  @@unique([id, projectId])
+  @@map("application")
+}
+
+enum ApplicationStatus {
+  pending
+  accepted
+  rejected
+}
+
 model Project {
-  id                 String   @id
+  id                 String        @id
   projectName        String
   projectDescription String
   github             String?
   progress           Int
-  isSecretProject    Boolean  @default(false)
-  votes              Int      @default(0)
+  votes              Int           @default(0)
+  applications       Application[]
   userId             String
-  user               User     @relation("UserProjects", fields: [userId], references: [id], onDelete: Cascade)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @default(now())
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @default(now())
+
+  @@unique([id, userId])
+  @@map("project")
 }
 
 model Session {

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 
 type CircularProgressProps = {
   value: number; // 0 - 100
