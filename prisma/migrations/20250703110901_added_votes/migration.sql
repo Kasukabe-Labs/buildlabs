@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Project" ADD COLUMN     "votes" INTEGER NOT NULL DEFAULT 0;
