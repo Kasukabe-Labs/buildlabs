@@ -3,6 +3,7 @@ import express from "express";
 import { clerkMiddleware } from "@clerk/express";
 import { verifyWebhook } from "@clerk/express/webhooks";
 import bodyParser from "body-parser";
+import { prisma } from "./config/prisma.js";
 const app = express();
 const port = 8000;
 app.use(clerkMiddleware());
@@ -17,6 +18,21 @@ app.post("/api/webhooks", bodyParser.raw({ type: "application/json" }), async (r
         console.log("Event type:", eventType);
         console.log("Event ID:", eventId);
         console.log("Webhook payload:", event);
+        //database logic, adding user to db
+        if (eventType === "user.created") {
+            const { id, image_url, username, email_addresses } = event.data;
+            const email = email_addresses?.[0]?.email_address || "";
+            const newUser = await prisma.user.create({
+                data: {
+                    id,
+                    name: username,
+                    email,
+                    image: image_url,
+                },
+            });
+            console.log("New user created:", newUser);
+            res.status(200).json({ message: "User created successfully" });
+        }
     }
     catch (error) {
         console.error("Error verifying webhook:", error);
