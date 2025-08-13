@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String    @id @default(uuid())
+  name            String
+  email           String    @unique
+  image           String
+  public_key      String    @unique @default("")
+  projects_funded Int       @default(0)
+  projects        Project[] @relation("UserProjects")
+  funded_projects Project[] @relation("ProjectFunders")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Project {
+  id          String  @id @default(uuid())
+  creator     User    @relation("UserProjects", fields: [userId], references: [id])
+  userId      String
+  title       String
+  description String
+  github      String
+  image       String?
+  likes       Likes[]
+  fund_raised Int     @default(0)
+  fund_target Int     @default(0)
+  funded_by   User[]  @relation("ProjectFunders")
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+}

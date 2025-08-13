@@ -5,6 +5,13 @@ import { SearchIcon, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Link from "next/link";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 function MasterNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -70,24 +77,23 @@ function MasterNavbar() {
         />
       </div>
 
-      {/* Right Section */}
-      <div className="flex items-center gap-2">
-        <Button>Login</Button>
-        <Button variant="outline" className="md:flex hidden">
-          Signin
-        </Button>
+      {/* Right Side - Auth Buttons */}
+      <div className="flex items-center gap-4">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <Button>Sign In</Button>
+          </SignInButton>
 
-        {/* Hamburger menu icon on mobile */}
-        <button
-          className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
-        </button>
+          <SignUpButton mode="modal">
+            <Button variant={"outline"} className="hidden md:flex">
+              Sign Up
+            </Button>
+          </SignUpButton>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
 
       {/* Mobile dropdown menu */}
