@@ -1,9 +1,11 @@
 import "dotenv/config";
-import express from "express";
+import express, {} from "express";
 import { clerkMiddleware } from "@clerk/express";
 import { verifyWebhook } from "@clerk/express/webhooks";
 import bodyParser from "body-parser";
+import cors from "cors";
 import { prisma } from "./config/prisma.js";
+import authMiddleware, {} from "./middleware.js";
 const app = express();
 const port = 8000;
 app.use(clerkMiddleware());
@@ -36,6 +38,36 @@ app.post("/api/webhooks", bodyParser.raw({ type: "application/json" }), async (r
     }
     catch (error) {
         console.error("Error verifying webhook:", error);
+    }
+});
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
+app.use(bodyParser.json());
+function funct1(req, res) {
+    const userId = req.user?.id;
+    res.status(200).json(`User ID: ${userId} and Protected route`);
+}
+app.get("/protected", authMiddleware, (req, res) => funct1(req, res));
+app.get("/api/profile", authMiddleware, async (req, res) => {
+    try {
+        const authReq = req;
+        const userId = authReq.user?.id;
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+        });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user);
+    }
+    catch (error) {
+        console.error("Profile fetch error:", error);
+        res.status(500).json({ error: "Failed to fetch profile" });
     }
 });
 app.listen(port, () => {
