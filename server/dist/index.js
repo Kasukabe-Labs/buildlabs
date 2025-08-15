@@ -124,12 +124,39 @@ async function getProjects(req, res) {
         res.status(500).json({ error: "Failed to fetch projects" });
     }
 }
+// public key
+async function addPublicKey(req, res) {
+    try {
+        const userId = req.user?.id;
+        const { public_key } = req.body;
+        const updatedUserWithPublicKey = await prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                public_key,
+            },
+        });
+        if (!updatedUserWithPublicKey) {
+            return res.status(400).json({ message: "Public key not added" });
+        }
+        res.status(200).json(updatedUserWithPublicKey);
+    }
+    catch (error) {
+        console.error("Public key add error:", error);
+        res.status(500).json({ error: "Failed to add public key" });
+    }
+}
 // projects routes
 app.post("/api/v1/project", authMiddleware, (req, res) => {
     createProject(req, res);
 });
 app.get("/api/v1/projects", (req, res) => {
     getProjects(req, res);
+});
+// public key
+app.post("/api/v1/addPublicKey", (req, res) => {
+    addPublicKey(req, res);
 });
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
