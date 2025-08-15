@@ -11,15 +11,12 @@ import {
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
-import {
-  WalletModalProvider,
-  WalletDisconnectButton,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { clusterApiUrl } from "@solana/web3.js";
 import { useMemo } from "react";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
+import ConnectWallet from "@/components/ConnectWallet";
 
 export default function Home() {
   const { getToken } = useAuth();
@@ -63,12 +60,12 @@ export default function Home() {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <WalletMultiButton />
-          <WalletDisconnectButton />
-          <div className="fullScreen">
+          <div className="fullScreen space-y-6">
             <Button onClick={fetchProtection}>Fetch Protected</Button>
             <Button onClick={fetchProfile}>Fetch Profile</Button>
             <Button onClick={fetchAllProjects}>Fetch All Projects</Button>
+
+            <ConnectWallet />
 
             <AddNewProject />
           </div>

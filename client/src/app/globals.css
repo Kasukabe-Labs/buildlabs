@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 @import "tailwindcss";
 
 @import "tw-animate-css";
@@ -145,18 +147,14 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.ttf') format('truetype');
-  font-style: normal;
-  font-display: swap;
-}
+
 
 
 body{
-  font-family: "Satoshi";
-  font-weight: 500;
-  letter-spacing: -4%;
+   font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 @layer components {

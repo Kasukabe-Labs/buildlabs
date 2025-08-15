@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "BuildLabs",
-  description: "Crowdfund opensource projects",
+  description: "Marketplace for opensource projects",
 };
 
 export default function RootLayout({

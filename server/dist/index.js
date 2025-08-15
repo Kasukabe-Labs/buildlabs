@@ -155,7 +155,7 @@ app.get("/api/v1/projects", (req, res) => {
     getProjects(req, res);
 });
 // public key
-app.post("/api/v1/addPublicKey", (req, res) => {
+app.post("/api/v1/addPublicKey", authMiddleware, (req, res) => {
     addPublicKey(req, res);
 });
 app.listen(port, () => {
