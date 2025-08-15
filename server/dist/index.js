@@ -50,8 +50,8 @@ function funct1(req, res) {
     const userId = req.user?.id;
     res.status(200).json(`User ID: ${userId} and Protected route`);
 }
-app.get("/protected", authMiddleware, (req, res) => funct1(req, res));
-app.get("/api/profile", authMiddleware, async (req, res) => {
+app.get("/api/v1/protected", authMiddleware, (req, res) => funct1(req, res));
+app.get("/api/v1/profile", authMiddleware, async (req, res) => {
     try {
         const authReq = req;
         const userId = authReq.user?.id;
@@ -69,6 +69,67 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
         console.error("Profile fetch error:", error);
         res.status(500).json({ error: "Failed to fetch profile" });
     }
+});
+// project functions
+async function createProject(req, res) {
+    try {
+        const userId = req.user?.id;
+        const { title, description, github, fund_target } = req.body;
+        const newProject = await prisma.project.create({
+            data: {
+                title,
+                description,
+                github,
+                fund_target,
+                userId,
+            },
+        });
+        if (!newProject) {
+            return res.status(400).json({ message: "Project not created" });
+        }
+        res.status(200).json(newProject);
+    }
+    catch (error) {
+        console.error("Project creation error:", error);
+        res.status(500).json({ error: "Failed to create project" });
+    }
+}
+async function getProjects(req, res) {
+    try {
+        const allProjects = await prisma.project.findMany({
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                        public_key: true,
+                    },
+                },
+                likes: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+        if (!allProjects) {
+            return res.status(400).json({ message: "Projects not found" });
+        }
+        else {
+            res.status(200).json(allProjects);
+        }
+    }
+    catch (error) {
+        console.error("Projects fetch error:", error);
+        res.status(500).json({ error: "Failed to fetch projects" });
+    }
+}
+// projects routes
+app.post("/api/v1/project", authMiddleware, (req, res) => {
+    createProject(req, res);
+});
+app.get("/api/v1/projects", (req, res) => {
+    getProjects(req, res);
 });
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
